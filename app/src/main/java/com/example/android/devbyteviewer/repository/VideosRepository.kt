@@ -1,6 +1,10 @@
 package com.example.android.devbyteviewer.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.example.android.devbyteviewer.database.VideosDatabase
+import com.example.android.devbyteviewer.database.asDomainModel
+import com.example.android.devbyteviewer.domain.Video
 import com.example.android.devbyteviewer.network.Network
 import com.example.android.devbyteviewer.network.asDatabaseModel
 import kotlinx.coroutines.Dispatchers
@@ -27,5 +31,12 @@ class VideosRepository(private val database: VideosDatabase) {
             val playlist = Network.devbytes.getPlaylist().await()
             database.videoDao.insertAll(*playlist.asDatabaseModel())
         }
+    }
+
+    /**
+     * A playlist of videos that can be shown on the screen.
+     */
+    val videos: LiveData<List<Video>> = Transformations.map(database.videoDao.getVideo()) {
+        it.asDomainModel()
     }
 }
