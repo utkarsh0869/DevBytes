@@ -1,6 +1,3 @@
 # DevBytes
-DevByte Viewer is an offline caching app app that showcases the use of:
+DevByte Viewer is an app that showcases the use of **Room** to create an offline cache. It also implements a **Repository pattern**, a way to combine multiple sources like network requests and database. It also uses **Work Manager** to schedule work when the app is in the background. 
 
-1. Room Databse
-2. Repository pattern
-3. Work Manager
